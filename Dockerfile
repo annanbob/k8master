@@ -1,9 +1,9 @@
 
 FROM golang:1-alpine as build
 
-WORKDIR /opt/go_app
+WORKDIR /opt/go_app/workingapp
 COPY . .
-RUN go build second_hello.go
+RUN go build hello.go
 
 
 #FROM golang:1-alpine as build
@@ -15,7 +15,7 @@ RUN go build second_hello.go
 FROM alpine:latest
 
 WORKDIR /app
-COPY --from=build /opt/go_app/hello /app/hello
+COPY --from=build /opt/go_app/workingapp/hello /app/hello
 
 EXPOSE 8180
 ENTRYPOINT ["./hello"]
